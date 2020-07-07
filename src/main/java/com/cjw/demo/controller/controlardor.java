@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.cjw.demo.interfaceService.IAlumnoService;
 import com.cjw.demo.interfaceService.IMaestroService;
 import com.cjw.demo.interfaceService.IMateriaService;
+import com.cjw.demo.interfaceService.lGrupoService;
 import com.cjw.demo.modelo.Alumno;
-import com.cjw.demo.modelo.Greeting;
+import com.cjw.demo.modelo.Grupo;
 import com.cjw.demo.modelo.Maestro;
 import com.cjw.demo.modelo.Materia;
 
@@ -29,6 +30,8 @@ public class controlardor {
 	private IAlumnoService Aservice;
 	@Autowired
 	private IMateriaService MAservice;
+	@Autowired
+	private lGrupoService Gservice;
 	
 	@GetMapping({"/","/login"})
 	public String index() {
@@ -36,12 +39,18 @@ public class controlardor {
 	}
 	
 	//*******
-	//Inscribir Materia
+	//Materia
 	//*******
 	@GetMapping("/alumno")
 	public String alumno(Model model) {
 		model.addAttribute("materia", new Materia());
 		return "alumno";
+	}
+	
+	@GetMapping("/materia/new")
+	public String agregarMateria(Model model) {
+		model.addAttribute("materia", new Materia());
+		return "form-materia";
 	}
 	
 	@PostMapping("/materia/save")
@@ -51,9 +60,65 @@ public class controlardor {
 	}
 	
 	@GetMapping("/maestro")
-	public String maestro() {
+	public String maestro(Model model) {
+		List<Materia>materias = MAservice.listar();
+		model.addAttribute("materias", materias);
+		List<Grupo>grupos = Gservice.listar();
+		model.addAttribute("grupos", grupos);
 		return "maestro";
 	}
+	
+	@GetMapping("/materia/editar/{id}")
+	public String editarMateria(@PathVariable int id, Model modelo) {
+		Optional<Materia> materia = MAservice.listarId(id);
+		modelo.addAttribute("materia", materia);
+		return "form-materia";
+	}
+	
+	@PostMapping("/materia/ma-save")
+	public String MAsave(@Validated Materia ma, Model model) {
+		MAservice.save(ma);
+		return "redirect:/maestro";
+	}
+	
+	@GetMapping("/materia/eliminar/{id}")
+	public String deleteMateria(@PathVariable int id, Model modelo) {
+		MAservice.delete(id);
+		return "redirect:/maestro";
+	}
+	
+	//*******
+	//Grupo
+	//*******
+	
+	@GetMapping("/grupo/new")
+	public String agregarGrupo(Model model) {
+		model.addAttribute("grupo", new Grupo());
+		return "form-grupo";
+	}
+	
+	@PostMapping("/grupo/save")
+	public String Gsave(@Validated Grupo g, Model model) {
+		Gservice.save(g);
+		return "redirect:/maestro";
+	}
+	
+	@GetMapping("/grupo/editar/{id}")
+	public String editarGrupo(@PathVariable int id, Model modelo) {
+		Optional<Grupo> grupo = Gservice.listarId(id);
+		modelo.addAttribute("grupo", grupo);
+		return "form-grupo";
+	}
+	
+	@GetMapping("/grupo/eliminar/{id}")
+	public String deleteGrupo(@PathVariable int id, Model modelo) {
+		Gservice.delete(id);
+		return "redirect:/maestro";
+	}
+	
+	//*******
+	//Admin
+	//*******
 	
 	@GetMapping("/admin")
 	public String listar(Model model) {
@@ -91,6 +156,7 @@ public class controlardor {
 		Mservice.delete(id);
 		return "redirect:/admin";
 	}
+	
 	//*******
 	//Alumno
 	//*******

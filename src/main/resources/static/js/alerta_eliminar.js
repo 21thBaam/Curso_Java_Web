@@ -1,5 +1,6 @@
-function dtn(id,opc){
-	var urls = ["/maestro/eliminar/","/alumno/eliminar/"];
+function dtn(id,opc,opc2){
+	var urls = ["/maestro/eliminar/","/alumno/eliminar/", "/materia/eliminar/","/grupo/eliminar/"];
+	var redi = ["/admin","/maestro"];
 	Swal.fire({
 	  title: 'Are you sure?',
 	  text: "You won't be able to revert this!",
@@ -22,7 +23,7 @@ function dtn(id,opc){
 	      'success'
 	    ).then( (result)=>{
 	    	if(result.value){
-	    		location.href="/admin";
+	    		location.href=redi[opc2];
 	    	}
 	    });
 	  }

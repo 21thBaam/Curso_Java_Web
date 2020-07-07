@@ -28,18 +28,18 @@
 			</tr>
 			</thead>
 			<tbody>
-				<tr th:each="persona: ${personas}">
-					<td th:text="${persona.id}"> 1</td>
-					<td th:text="${persona.name}"> 1</td>
-					<td th:text="${persona.telefono}"> 1</td>
+				<tr th:each="materia: ${materias}">
+					<td th:text="${materia.nombre}"></td>
+					<td th:text="${materia.clave}"></td>
+					<td th:text="${materia.estatus}"></td>
 					<td>
-					<a th:href="@{/editar/}+${persona.id}" class="btn btn-warning">Editar</a>
-					<a th:href="@{/eliminar/}+${persona.id}" class="btn btn-danger">Eliminar</a>
+					<a th:href="@{/materia/editar/}+${materia.id}" class="btn btn-warning">Editar</a>
+					<a th:onclick="dtn([[${materia.id}]],2,1)" class="btn btn-danger">Eliminar</a>
 					</td>
 				</tr>
 			</tbody>
 		</table>
-		<a th:href="@{/maestro/new}" class="btn btn-primary">Nuevo</a>
+		<a th:href="@{/materia/new}" class="btn btn-primary">Nuevo</a>
 	</div>
 	
 	<div class="container mt-4">
@@ -53,18 +53,18 @@
 			</tr>
 			</thead>
 			<tbody>
-				<tr th:each="persona: ${personas}">
-					<td th:text="${persona.id}"> 1</td>
-					<td th:text="${persona.name}"> 1</td>
-					<td th:text="${persona.telefono}"> 1</td>
+				<tr th:each="grupo: ${grupos}">
+					<td th:text="${grupo.clave}"></td>
+					<td th:text="${grupo.cantidad_alumnos}"></td>
+					<td th:text="${grupo.estatus}"></td>
 					<td>
-					<a th:href="@{/editar/}+${persona.id}" class="btn btn-warning">Editar</a>
-					<a th:href="@{/eliminar/}+${persona.id}" class="btn btn-danger">Eliminar</a>
+					<a th:href="@{/grupo/editar/}+${grupo.id}" class="btn btn-warning">Editar</a>
+					<a th:onclick="dtn([[${grupo.id}]],3,1)" class="btn btn-danger">Eliminar</a>
 					</td>
 				</tr>
 			</tbody>
 		</table>
-		<a th:href="@{/maestro/new}" class="btn btn-primary">Nuevo</a>
+		<a th:href="@{/grupo/new}" class="btn btn-primary">Nuevo</a>
 	</div>
 
 <div class="footer">
