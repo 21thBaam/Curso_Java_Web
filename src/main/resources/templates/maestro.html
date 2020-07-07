@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Maestro</title>
+<link href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="/META-INF/resources/webjars/bootstrap/4.5.0/js/bootstrap.js" type="text/javascript"/>
+<link href="/css/admin.css" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+  <h2>Proyecto Curso Java</h2>
+  <h2 th:text="${#httpServletRequest.getUserPrincipal().getName()}"></h2>
+  <form th:action="@{/logout}" method="post">
+  	<input type="submit" value="Cerrar Sesion" class="btn btn-light"/>
+  </form>
+</nav>
+
+	<div class="container mt-4">
+	<h2>Catalogo Materias</h2>
+		<table class="table">
+			<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Clave</th>
+				<th>Estatus</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr th:each="persona: ${personas}">
+					<td th:text="${persona.id}"> 1</td>
+					<td th:text="${persona.name}"> 1</td>
+					<td th:text="${persona.telefono}"> 1</td>
+					<td>
+					<a th:href="@{/editar/}+${persona.id}" class="btn btn-warning">Editar</a>
+					<a th:href="@{/eliminar/}+${persona.id}" class="btn btn-danger">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a th:href="@{/maestro/new}" class="btn btn-primary">Nuevo</a>
+	</div>
+	
+	<div class="container mt-4">
+	<h2>Catalogo Grupos</h2>
+		<table class="table">
+			<thead>
+			<tr>
+				<th>Clave de Materia</th>
+				<th>Cantidad de Alumnos</th>
+				<th>Estatus</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr th:each="persona: ${personas}">
+					<td th:text="${persona.id}"> 1</td>
+					<td th:text="${persona.name}"> 1</td>
+					<td th:text="${persona.telefono}"> 1</td>
+					<td>
+					<a th:href="@{/editar/}+${persona.id}" class="btn btn-warning">Editar</a>
+					<a th:href="@{/eliminar/}+${persona.id}" class="btn btn-danger">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a th:href="@{/maestro/new}" class="btn btn-primary">Nuevo</a>
+	</div>
+
+<div class="footer">
+<nav class="navbar navbar-dark bg-dark" style="bottom: 0; width: 100%;">
+  <h3 style="margin: auto;">Angel Reyes</h3>
+</nav>
+</div>
+
+<script type="text/javascript" src="/js/alerta_eliminar.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+</body>
+</html>

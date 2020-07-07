@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Alumno</title>
+<link href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="/META-INF/resources/webjars/bootstrap/4.5.0/js/bootstrap.js" type="text/javascript"/>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+  <h2>Proyecto Curso Java</h2>
+  <h2 th:text="${#httpServletRequest.getUserPrincipal().getName()}"></h2>
+  <form th:action="@{/logout}" method="post">
+  	<input type="submit" value="Cerrar Sesion" class="btn btn-light"/>
+  </form>
+</nav>
+	<div class="container mt-4">
+		<div class="col-sm-6">
+		<form id="myForm" th:action="@{/materia/save}" th:object=${materia} method="POST">
+			<div class="card">
+			<div class="card-header">
+				<h3>Modulo Materia</h3>
+			</div>
+			<div class="card-body">
+				<input th:field="*{id}" type="hidden"/>
+				<div class="form-group">
+					<label>Nombre</label>
+					<input th:field="*{nombre}" type="text" class="form-control"/>
+				</div>
+				<div class="form-group">
+					<label>Clave</label>
+					<input th:field="*{clave}" type="text" class="form-control"/>
+				</div>
+				<div class="form-group">
+					<label>Estatus</label>
+					<input th:field="*{estatus}" type="text" class="form-control"/>
+				</div>
+			</div>
+			<div class="card-footer" style="padding: 0;"></div>
+				<input th:onclick="hecho()" value="Guardar" class="btn btn-success"/>
+			</div>
+		</form>
+		</div>
+	</div>
+	
+<script type="text/javascript" src="/js/hecho.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	
+</body>
+</html>

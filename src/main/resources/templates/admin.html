@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Administrador</title>
+<link href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<link href="/META-INF/resources/webjars/bootstrap/4.5.0/js/bootstrap.js" type="text/javascript"/>
+<link href="/css/admin.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark">
+  <h2>Proyecto Curso Java</h2>
+  <h2 th:text="${#httpServletRequest.getUserPrincipal().getName()}"></h2>
+  <form th:action="@{/logout}" method="post">
+  	<input type="submit" value="Cerrar Sesion" class="btn btn-light"/>
+  </form>
+</nav>
+
+<div class="contenido">
+	<div class="container mt-4">
+	<h2>Catalogo Maestros</h2>
+		<table class="table">
+			<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Usuario</th>
+				<th>No. Empleado</th>
+				<th>Tipo</th>
+				<th>Estatus</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr th:each="maestro: ${maestros}">
+					<td th:text="${maestro.name}"></td>
+					<td th:text="${maestro.usuario}"></td>
+					<td th:text="${maestro.no_empleado}"></td>
+					<td th:text="${maestro.tipo}"></td>
+					<td th:text="${maestro.estatus}"></td>
+					<td>
+					<a th:href="@{/maestro/editar/}+${maestro.id}" class="btn btn-warning">Editar</a>
+					<a th:onclick="dtn([[${maestro.id}]],0)" class="btn btn-danger">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a th:href="@{/maestro/new}" class="btn btn-primary">Nuevo</a>
+	</div>
+	
+	<div class="container mt-4">
+	<h2>Catalogo Alumnos</h2>
+		<table class="table">
+			<thead>
+			<tr>
+				<th>Nombre</th>
+				<th>Usuario</th>
+				<th>Matricula</th>
+				<th>Estatus</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr th:each="alumno: ${alumnos}">
+					<td th:text="${alumno.name}"></td>
+					<td th:text="${alumno.usuario}"></td>
+					<td th:text="${alumno.matricula}"></td>
+					<td th:text="${alumno.estatus}"></td>
+					<td>
+					<a th:href="@{/alumno/editar/}+${alumno.id}" class="btn btn-warning">Editar</a>
+					<a th:onclick="dtn([[${alumno.id}]],1)" class="btn btn-danger">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a th:href="@{/alumno/new}" class="btn btn-primary">Nuevo</a>
+	</div>
+</div>
+
+<div class="footer">
+<nav class="navbar navbar-dark bg-dark" style="bottom: 0; width: 100%;">
+  <h3 style="margin: auto;">Angel Reyes</h3>
+</nav>
+</div>
+
+<script type="text/javascript" src="/js/alerta_eliminar.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+
+</body>
+</html>
